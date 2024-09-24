@@ -1,14 +1,14 @@
 const request = require("supertest");
 const app = require("../app")
 
-describe("Get /trips", ()=>{
+describe("POST /trips", ()=>{
     it("should return trips" ,async ()=>{
         const bodyToSend = {
             departure : "Paris",
             arrival : "Marseille",
             date : new Date("2024-09-30Z")
         };
-        const res = await request(app).get("/trips").send(bodyToSend);
+        const res = await request(app).post("/trips").send(bodyToSend);
 
         expect(res.statusCode).toBe(200);
         expect(res.body.trips).toEqual([
@@ -43,8 +43,23 @@ describe("Get /trips", ()=>{
           ]);
     });
     it("should return result : false" ,async ()=>{
-        const res = await request(app).get("/trips");
+        const res = await request(app).post("/trips");
         expect(res.statusCode).toBe(200);
         expect(res.body.result).toBe(false);
     });
 })
+
+describe("GET /trips/:id" , ()=>{
+  it("should return trip" , async ()=>{
+    const trip = {
+      "_id": "66f278e0807adc0c03d6871b",
+      "departure": "Marseille",
+      "arrival": "Paris",
+      "date": "2024-09-26T05:22:00.069Z",
+      "price": 148
+    };
+    const res = await request(app).get("/trips/66f278e0807adc0c03d6871b");
+    expect (res.statusCode).toBe(200)
+    expect (res.body.trip).toEqual(trip)
+  })
+});

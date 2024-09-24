@@ -4,7 +4,7 @@ var router = express.Router();
 const Trip = require("../models/trips")
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.post('/', (req, res) =>{
   const {departure,arrival,date} = req.body;
 
     if (!(date && departure && arrival)) {
@@ -18,7 +18,11 @@ router.get('/', function(req, res, next) {
     console.log(dateInf)
     console.log(dateSup)
 
-    Trip.find({departure,arrival,date : {$gte : dateInf,$lt : dateSup}})
+    Trip.find({
+        departure : {$regex: new RegExp(departure,'i')},
+        arrival : {$regex: new RegExp(arrival,'i')},
+        date : {$gte : dateInf,$lt : dateSup}
+    })
         .then(data=> {
             if (data.length === 0) {
                 res.json({result : false , error : "Aucun voyage trouvé"});
@@ -27,6 +31,11 @@ router.get('/', function(req, res, next) {
             res.json({result : true , trips : data})
         });
 });
+
+router.get("/:id" , (req,res) => {
+    Trip.findById(req.params.id)
+        .then(data=>res.json({trip : data}))
+})
 
 
 module.exports = router;
