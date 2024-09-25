@@ -20,7 +20,7 @@ router.post("/", (req,res)=>{
   newTripsPanier.save().then(()=>res.json({result : true}))
 })
 
-module.exports = router;
+
 
 /*remove trip in DB by id--------------------*/
 //-----------------------------------1ere methode params marche pas !!!!!!!!!!-------------------
@@ -33,3 +33,10 @@ router.delete('/', (req,res)=>{
   Tripspanier.deleteOne({_id:req.body._id})
   .then(data=>{res.json({result:"trip deleted"})})
   });
+
+router.put("/book", (req,res)=>{
+  Tripspanier.updateMany({isPaid : false} , {isPaid : true})
+    .then(()=>res.json({result : true}))
+})
+
+module.exports = router;
