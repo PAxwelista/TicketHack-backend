@@ -4,6 +4,7 @@ const tripspanierSchema= mongoose.Schema({
     arrival : String, 
     date : Date, 
     price : Number,
+    isPaid: Boolean,
     });
 
 const Tripspanier=mongoose.model("tripspaniers",tripspanierSchema);
