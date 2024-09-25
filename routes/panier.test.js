@@ -15,3 +15,11 @@ describe("POST /panier" , ()=>{
         expect(res.body.result).toBe(true);
     })
 })
+
+describe("PUT /panier/book" , ()=>{
+    it("should return true and change all parameter isPaid to true" ,async ()=>{
+        const res = await request(app).put("/panier/book");
+        expect(res.statusCode).toBe(200);
+        expect(res.body.result).toBe(true);
+    })
+})

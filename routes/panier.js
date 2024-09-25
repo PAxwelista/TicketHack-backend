@@ -5,9 +5,9 @@ const Tripspanier= require('../models/tripspanier');
 
 /* GET all trips in cart ----------------------*/
 router.get('/', (req, res) =>{
-  Tripspanier.find().then ((dbDdata)=>res.json({alltrips:dbDdata }))
-  ;
-});
+  Tripspanier.find()
+    .then ((dbDdata)=>res.json({alltrips:dbDdata.sort((a,b)=>a.date-b.date)}))
+  });
 
 /* GET UNPAID trips in cart ----------------------*/
 router.get('/unpaid', (req, res) =>{
