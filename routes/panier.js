@@ -9,6 +9,12 @@ router.get('/', (req, res) =>{
   ;
 });
 
+/* GET UNPAID trips in cart ----------------------*/
+router.get('/unpaid', (req, res) =>{
+  Tripspanier.find({isPaid:false}).then ((dbDdata)=>res.json({unpaidTrips:dbDdata }))
+  ;
+});
+
 router.post("/", (req,res)=>{
   const newTripsPanier = new Tripspanier({
     departure : req.body.departure,
