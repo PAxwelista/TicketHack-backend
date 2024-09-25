@@ -9,4 +9,15 @@ router.get('/', (req, res) =>{
   ;
 });
 
+router.post("/", (req,res)=>{
+  const newTripsPanier = new Tripspanier({
+    departure : req.body.departure,
+    arrival : req.body.arrival,
+    date : req.body.date,
+    price : req.body.price,
+    isPaid : false,
+  })
+  newTripsPanier.save().then(()=>res.json({result : true}))
+})
+
 module.exports = router;

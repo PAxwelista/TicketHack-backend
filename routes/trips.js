@@ -14,10 +14,7 @@ router.post('/', (req, res) =>{
     const dateInf = new Date(date);
     const dateSup = new Date(date);
     dateSup.setDate(dateInf.getDate()+1);
-
-    console.log(dateInf)
-    console.log(dateSup)
-
+    
     Trip.find({
         departure : {$regex: new RegExp(departure,'i')},
         arrival : {$regex: new RegExp(arrival,'i')},
