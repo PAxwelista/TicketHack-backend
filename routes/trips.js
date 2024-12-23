@@ -3,7 +3,7 @@ var router = express.Router();
 
 const Trip = require("../models/trips")
 
-/* GET home page. */
+
 router.post('/', (req, res) =>{
   const {departure,arrival,date} = req.body;
 
